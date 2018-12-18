@@ -79,6 +79,17 @@ class Item:
         self.dorms]
         return attr
 
+    def str_of_attr(self):
+        attr = self.list_of_attr()
+        line = ""
+        for elem in attr:
+            elem = str(elem)
+            if elem:
+                line += elem + ","
+        line = line.rstrip(",")
+        line += "\n"
+        return line
+
     def test(self):
         """
         """
@@ -104,6 +115,7 @@ class Search:
         self.file_name = "portalinmobiliario.csv"
         self.file = open(self.file_name, "w")
         self.writer = csv.writer(self.file, delimiter=",")
+        self.data = ""
 
     def find_products(self, url):
         response = self.simple_get(url)
@@ -204,17 +216,20 @@ class Search:
                 return css_class
 
     def write_file(self, item):
-        self.writer.writerow(item.list_of_attr())
-        return None
+        line = item.str_of_attr()
+        # self.writer.writerow(item.list_of_attr())
+        self.data += line
 
 if __name__ == "__main__":
     s = Search()
     url = 'https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg='
-    for i in range(4):
+    for i in range(156):
         a = str(i)
         print(a+"/156")
         url2 = url+a
         s.find_products(url2)
+    # print(s.data)
+
 
 """
 x = "casa"
