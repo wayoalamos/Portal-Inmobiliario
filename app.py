@@ -19,6 +19,7 @@ def homepage():
 
 @app.route("/getPlotCSV")
 def getPlotCSV():
+    return "hola"
     """
     s = Search()
     url = 'https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg='
@@ -26,13 +27,13 @@ def getPlotCSV():
         a = str(i)
         print(a+"/156")
         url2 = url+a
-        s.find_products(url2)"""
+        s.find_products(url2)
     csv = "1,2,3\n"
     return Response(
         csv,
         mimetype="text/csv",
         headers={"Content-disposition":
-                 "attachment; filename=pAaArtalDs.csv"})
+                 "attachment; filename=pAaArtalDs.csv"})"""
 
 
 
