@@ -1,13 +1,18 @@
 from flask import Flask, Response
+from datetime import datetime
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return '''
-        <html><body>
-        Hello. <a href="/getPlotCSV">Click me.</a>
-        </body></html>
-        '''
+@app.route('/')
+def homepage():
+    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+
+    return """
+    <h1>Hello heroku</h1>
+    <a href="/getPlotCSV">Click me.</a>
+    <p>It is currently {time}.</p>
+
+    <img src="http://loremflickr.com/600/400" />
+    """.format(time=the_time)
 
 @app.route("/getPlotCSV")
 def getPlotCSV():
@@ -18,7 +23,9 @@ def getPlotCSV():
         csv,
         mimetype="text/csv",
         headers={"Content-disposition":
-                 "attachment; filename=myplot.csv"})
+                 "attachment; filename=portalDs.csv"})
 
 
-app.run(debug=True)
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=True)
