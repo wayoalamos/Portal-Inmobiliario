@@ -10,7 +10,7 @@ def homepage():
 
 
     return """
-    <h1>Hsellos heeeroku</h1>
+    <h1>branch s heeeroku</h1>
     <a href="/getPlotCSV">Click me.</a>
     <p>It is currently {time}.</p>
 
