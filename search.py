@@ -52,7 +52,10 @@ class Item:
         value = value.replace(".", "")
         value = value.replace(",", ".")
         # value = value[:value.find("/")] # maybe change this
-        value = float(value)
+        try:
+            value = float(value)
+        except:
+            pass
         self.value = value
 
     def change_dorms(self, dorms):
