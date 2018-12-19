@@ -130,10 +130,10 @@ class Search:
         for elem in div.find_all("div", class_=self.is_product_item_summary):
             counter = 0
             for string in elem.stripped_strings:
-                # try:
-                string = string.encode('utf-8').strip()
-                string = str(string)
-
+                try:
+                    string = string.decode("utf-8")
+                except:
+                    pass
                 if counter == 0:
                     item.change_title(string)
                 elif counter == 1:
@@ -154,7 +154,6 @@ class Search:
         type = 0
         for elem in div.find_all("div", class_="col-sm-3"):
             for string in elem.stripped_strings:
-                print(string)
                 try:
                     string = string.decode("utf-8")
                 except:
