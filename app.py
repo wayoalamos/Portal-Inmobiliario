@@ -13,7 +13,8 @@ def homepage():
     <p>Falta, agregar link a columna de excel, ratios y encabezados </p>
     <p>Busqueda de links mejorada</p>
     <p>Cambiar estilos</p>
-    <h2> ejemplo: </h2>
+    <h2> ejemplos a ingresar: (por ahora el link siempre tiene que terminar con 'pg=1')</h2>
+    <h3> https://www.portalinmobiliario.com/venta/departamento/jardin-del-este-vitacura-santiago-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
     <h3> https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
     <form method="POST">
         <input name="text">
