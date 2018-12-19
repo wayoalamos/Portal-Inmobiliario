@@ -156,7 +156,7 @@ class Search:
             for string in elem.stripped_strings:
                 # try:
                 if isinstance(string, str):
-                    string = str(string, "utf-8")
+                    string = string.decode("utf-8")
                 string = string.encode('utf-8').strip()
                 string = str(string)
 
