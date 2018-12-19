@@ -14,7 +14,8 @@ class Item:
         self.value = None
         self.low_value = None
         self.high_value = None
-        self.surface = None
+        self.surface_built = None
+        self.surface_all = None
         self.dorms = None
 
         self.ratio_departamentos = None # UF / Superficie
@@ -46,6 +47,11 @@ class Item:
         self.dorms = dorms
 
     def change_value(self, value):
+        value = value.lstrip("UF ")
+        value = value.replace(".", "")
+        value = value.replace(",", ".")
+        value = value[:value.find("/")] # maybe change this
+        value = float(value)
         self.value = value
 
     def change_surface(self, surface):
@@ -53,12 +59,21 @@ class Item:
             surface = self.clean_surface(surface)
         except:
             print("error while cleaning surface string")
-        self.surface = surface
+        self.surface_built = surface[0]
+        self.surface_all = surface[1]
 
     def change_low_value(self, value):
+        value = value.lstrip("UF ")
+        value = value.replace(".", "")
+        value = value.replace(",", ".")
+        value = float(value)
         self.low_value = value
 
     def change_high_value(self, value):
+        value = value.lstrip("UF ")
+        value = value.replace(".", "")
+        value = value.replace(",", ".")
+        value = float(value)
         self.high_value = value
 
     def clean_surface(self, surface):
@@ -75,17 +90,19 @@ class Item:
 
     def list_of_attr(self):
         attr = [self.title, self.category, self.location, self.address,
-        self.surface, self.code, self.value, self.low_value, self.high_value,
-        self.dorms]
+        self.surface_built, self.surface_all, self.code, self.value,
+        self.low_value, self.high_value, self.dorms]
         return attr
 
     def str_of_attr(self):
         attr = self.list_of_attr()
         line = ""
         for elem in attr:
-            elem = str(elem)
-            if elem:
+            try:
+                elem = str(elem)
                 line += elem + ","
+            except:
+                line += " - ,"
         line = line.rstrip(",")
         line += "\n"
         return line
@@ -107,7 +124,7 @@ class Item:
             print("high_value: ", self.high_value)
         if self.dorms:
             print("dorms: ", self.dorms)
-        print("surface: ", self.surface)
+        print("surface built: ", self.surface_built)
         print("*************")
 
 class Search:
@@ -118,11 +135,18 @@ class Search:
         self.data = ""
 
     def find_products(self, url):
-        response = self.simple_get(url)
-        if response is not None:
-            html = BeautifulSoup(response, 'html.parser')
-            for div in html.find_all("div", class_=self.is_product_item):
-                self.take_info(div)
+        has_response = True
+        while has_response:
+            has_response = False
+            response = self.simple_get(url)
+            if response is not None:
+                html = BeautifulSoup(response, 'html.parser')
+                for div in html.find_all("div", class_=self.is_product_item):
+                    self.take_info(div)
+                    has_response = True
+                page_number = str(int(url[url.rfind("=")+1:]) + 1)
+                url = url[:url.rfind("=")+1] + page_number
+                print("url: ", url)
 
     def take_info(self, div):
         # in case there is no product summary returns null
@@ -134,6 +158,8 @@ class Search:
                     string = string.decode("utf-8")
                 except:
                     pass
+                string = string.encode("utf-8")
+                string = str(string)
                 if counter == 0:
                     item.change_title(string)
                 elif counter == 1:
@@ -158,6 +184,8 @@ class Search:
                     string = string.decode("utf-8")
                 except:
                     pass
+                string = string.encode("utf-8")
+                string = str(string)
                 if "Valor" in string:
                     type = 1
                 elif "Superficie" in string:
@@ -214,19 +242,15 @@ class Search:
                 return css_class
 
     def write_file(self, item):
-        line = item.str_of_attr()
-        # self.writer.writerow(item.list_of_attr())
-        self.data += line
+        # line = item.str_of_attr()
+        self.writer.writerow(item.list_of_attr())
+        # self.data += line
 
 if __name__ == "__main__":
     s = Search()
-    url = 'https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg='
-    for i in range(156):
-        a = str(i)
-        print(a+"/156")
-        url2 = url+a
-        s.find_products(url2)
-    # print(s.data)
+    url = 'https://www.portalinmobiliario.com/venta/casa/plaza-nunoa-santiago-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1'
+    s.find_products(url)
+
 
 
 """

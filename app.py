@@ -1,6 +1,8 @@
-from flask import Flask, Response
+from flask import Flask, Response, request
 from datetime import datetime
 from search import Search
+
+# fix dimensiones por la coma que hay se separan en dos valores distintos en el excel
 
 app = Flask(__name__)
 
@@ -10,22 +12,21 @@ def homepage():
 
 
     return """
-    <h1>yepi! s heeeroku</h1>
-    <a href="/getPlotCSV">Click me.</a>
-    <p>It is currently {time}.</p>
-
-    <img src="http://loremflickr.com/600/400" />
+    <h1>Inmobiliaria Aguayo </h1>
+    <form method="POST">
+        <input name="text">
+        <input type="submit">
+    </form>
     """.format(time=the_time)
+    # <a href="/getPlotCSV">Click me.</a>
 
-@app.route("/getPlotCSV")
+@app.route("/", methods=["POST"])
 def getPlotCSV():
+    text = request.form['text']
+    url = str(text)
     s = Search()
-    url = 'https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg='
-    for i in range(4):
-        a = str(i)
-        print(a+"/156")
-        url2 = url+a
-        s.find_products(url2)
+    # https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=
+    s.find_products(url)
     csv = s.data
     return Response(
         csv,
