@@ -32,7 +32,7 @@ def getPlotCSV():
         csv,
         mimetype="text/csv",
         headers={"Content-disposition":
-                 "attachment; filename=pAaArtalDs.csv"})
+                 "attachment; filename=palabras.csv"})
 
 
 
