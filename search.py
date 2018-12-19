@@ -155,6 +155,7 @@ class Search:
         for elem in div.find_all("div", class_="col-sm-3"):
             for string in elem.stripped_strings:
                 # try:
+                string = str(string)
                 string = string.encode('utf-8').strip()
                 string = str(string)
 
