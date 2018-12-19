@@ -26,7 +26,7 @@ def getPlotCSV():
         print(a+"/156")
         url2 = url+a
         s.find_products(url2)
-    csv = '1,2,3\n4,5,6\n'
+    csv = s.data
     return Response(
         csv,
         mimetype="text/csv",
