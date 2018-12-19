@@ -83,8 +83,8 @@ class Item:
         return surface
 
     def list_of_attr(self):
-        attr = [self.title, self.category, self.location,
-        self.surface_built, self.surface_all, self.code, self.value, self.dorms]
+        attr = [self.title, self.category, self.location, self.code, self.dorms, 
+        self.surface_built, self.surface_all, self.value]
         return attr
 
     def str_of_attr(self):
@@ -156,12 +156,8 @@ class Search:
 
     def clean_string(self, string):
         # decode and encode depending on the string
-        try:
+        if isinstance(string, bytes):
             string = string.decode("utf-8")
-        except:
-            pass
-        string = string.encode("utf-8")
-        string = str(string)
         return string
 
     def take_info(self, div):
