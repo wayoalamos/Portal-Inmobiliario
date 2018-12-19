@@ -9,6 +9,10 @@ app = Flask(__name__)
 def homepage():
     return """
     <h1>Inmobiliaria Aguayo </h1>
+    <h2> Por hacer: </h2>
+    <p>Falta, agregar link a columna de excel, ratios y encabezados </p>
+    <p>Busqueda de links mejorada</p>
+    <p>Cambiar estilos</p>
     <h2> ejemplo: </h2>
     <h3> https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
     <form method="POST">
