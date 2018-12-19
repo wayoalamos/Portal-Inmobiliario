@@ -9,9 +9,8 @@ def homepage():
     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
 
-    return
-    """
-    <h1>branch s heeeroku</h1>
+    return """
+    <h1>yepi! s heeeroku</h1>
     <a href="/getPlotCSV">Click me.</a>
     <p>It is currently {time}.</p>
 
@@ -27,7 +26,7 @@ def getPlotCSV():
         print(a+"/156")
         url2 = url+a
         s.find_products(url2)
-    csv = s.data
+    csv = '1,2,3\n4,5,6\n'
     return Response(
         csv,
         mimetype="text/csv",
