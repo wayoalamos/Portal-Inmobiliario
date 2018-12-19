@@ -83,7 +83,7 @@ class Item:
         return surface
 
     def list_of_attr(self):
-        attr = [self.title, self.category, self.location, self.code, self.dorms, 
+        attr = [self.title, self.category, self.location, self.code, self.dorms,
         self.surface_built, self.surface_all, self.value]
         return attr
 
@@ -256,26 +256,4 @@ class Search:
 if __name__ == "__main__":
     s = Search()
     url = 'https://www.portalinmobiliario.com/venta/departamento/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1'
-    # s.find_products(url)
     s.find_products(url)
-
-    # print(s.data)
-
-
-
-"""
-x = "casa"
-https://www.portalinmobiliario.com/venta/departamento/providencia-metropolitana?tp=2&op=1&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=2&sf=1&sp=0 #usados
-https://www.portalinmobiliario.com/venta/departamento/providencia-metropolitana?tp=2&op=1&ca=3&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=2&sf=1&sp=0 # nuevo y usados
-
-https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?tp=1&op=1&ca=2&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=2&sf=1&sp=0 #usados
-https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?tp=1&op=1&ca=3&ts=1&dd=0&dh=6&bd=0&bh=6&or=&mn=2&sf=1&sp=0 #nuevo y usado
-url = 'https://www.portalinmobiliario.com/venta/departamento/providencia-metropolitana'
-s.find_products(url)
-url = 'https://www.portalinmobiliario.com/venta/departamento/barrio-italia-providencia-santiago-metropolitana'
-s.find_products(url)
-url = 'https://www.portalinmobiliario.com/venta/departamento/barrio-italia-providencia-santiago-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=4'
-s.find_products(url)
-url = 'https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=4'
-s.find_products(url)
-"""
