@@ -256,4 +256,5 @@ class Search:
 if __name__ == "__main__":
     s = Search()
     url = 'https://www.portalinmobiliario.com/venta/departamento/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1'
+    url = 'https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=5'
     s.find_products(url)

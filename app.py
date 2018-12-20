@@ -38,7 +38,7 @@ def getPlotCSV():
         csv,
         mimetype="text/csv",
         headers={"Content-disposition":
-                 "attachment; filename=palabras.csv"})
+                 "attachment; filename=dataPortal.xlsx"})
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
