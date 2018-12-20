@@ -2,3 +2,4 @@ Flask
 gunicorn
 requests
 bs4
+flask_excel
