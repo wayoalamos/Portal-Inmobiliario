@@ -128,7 +128,7 @@ class Search:
         self.file_name = "portalinmobiliario.csv"
         self.file = open(self.file_name, "w")
         self.writer = csv.writer(self.file, delimiter=",")
-        self.data = ""
+        self.data = []
         self.mode = 1 # 0 in file, 1 in web
 
     def find_products(self, url, limit=0):
@@ -249,7 +249,11 @@ class Search:
     def write_file(self, item):
         if self.mode == 0:
             self.writer.writerow(item.list_of_attr())
+        if self.mode == 1:
+            self.data.append(item.list_of_attr())
         else:
+            if self.data == []:
+                self.data = ""
             line = item.str_of_attr()
             self.data += line
 

@@ -1,6 +1,8 @@
-from flask import Flask, Response, request
-from search import Search
+from flask import Flask, Response, request, make_response
+import flask_excel as excel
+import pyexcel
 
+from search import Search
 # fix dimensiones por la coma que hay se separan en dos valores distintos en el excel
 
 app = Flask(__name__)
@@ -29,16 +31,13 @@ def getPlotCSV():
     s = Search()
     # https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=
     s.find_products(url)
-    csv = s.data
-    csv = csv.replace(",",".")
-    csv = csv.replace("*#*",",")
-    csv = csv.replace('"', '')
-    csv = csv.replace(';', '.')
-    return Response(
-        csv,
-        mimetype="text/csv",
-        headers={"Content-disposition":
-                 "attachment; filename=dataPortal.xlsx"})
+
+    sheet = pyexcel.Sheet(s.data)
+    output = make_response(sheet.csv)
+    output.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
+    output.headers["Content-type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    return output
 
 if __name__ == '__main__':
+    excel.init_excel(app)
     app.run(debug=True, use_reloader=True)
