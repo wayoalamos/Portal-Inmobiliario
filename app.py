@@ -1,5 +1,7 @@
 from flask import Flask, Response, request, make_response
 import flask_excel as excel
+from openpyxl import Workbook
+import openpyxl
 import pyexcel
 
 from search import Search
@@ -32,8 +34,12 @@ def getPlotCSV():
     # https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=
     s.find_products(url)
 
-    sheet = pyexcel.Sheet(s.data)
-    output = make_response(sheet.csv)
+    wb = Workbook()
+    ws = wb.active
+    ws.append([1,2,3,4,5,6,7])
+
+    # sheet = pyexcel.Sheet(s.data)
+    output = make_response(openpyxl.writer.excel.save_virtual_workbook(wb))
     output.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
     output.headers["Content-type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return output
