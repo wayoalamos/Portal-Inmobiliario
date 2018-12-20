@@ -6,7 +6,6 @@ import pyexcel
 
 from search import Search
 # fix dimensiones por la coma que hay se separan en dos valores distintos en el excel
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -36,7 +35,8 @@ def getPlotCSV():
 
     wb = Workbook()
     ws = wb.active
-    ws.append([1,2,3,4,5,6,7])
+    for line in s.data:
+        ws.append(line)
 
     # sheet = pyexcel.Sheet(s.data)
     output = make_response(openpyxl.writer.excel.save_virtual_workbook(wb))
