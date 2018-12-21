@@ -58,6 +58,9 @@ class Item:
             pass
         self.value = value
 
+    def change_href(self, href):
+        self.href = href
+
     def change_dorms(self, dorms):
         self.dorms = dorms
 
@@ -83,15 +86,19 @@ class Item:
         return surface
 
     def calculate_ratios(self):
-        if(self.surface_built):
-            self.ratio_one = self.value / self.surface_built
-        if(self.surface_all):
-            self.ratio_two = self.value / self.surface_all
+        try:
+            if(self.surface_built):
+                self.ratio_one = self.value / self.surface_built
+            if(self.surface_all):
+                self.ratio_two = self.value / self.surface_all
+        except:
+            self.ratio_one = "Error"
+            self.ratio_two = "Error"
 
     def list_of_attr(self):
         self.calculate_ratios()
         attr = [self.title, self.category, self.location, self.code, self.dorms,
-        self.surface_built, self.surface_all, self.value, self.ratio_one, self.ratio_two]
+        self.surface_built, self.surface_all, self.value, self.ratio_one, self.ratio_two, self.href]
         return attr
 
     def str_of_attr(self):
@@ -140,6 +147,8 @@ class Search:
 
     def find_products(self, url, limit=0):
         # has_items: if the website has product_item or not
+        if not "&pg=" in url:
+            url += "&pg=1"
         has_items = True
         while has_items:
             has_items = False
@@ -147,7 +156,7 @@ class Search:
             if response:
                 # conver html with BeautifulSoup
                 html = BeautifulSoup(response, 'html.parser')
-                for div in html.find_all("div", class_=self.is_product_item):
+                for div in html.find_all("div", class_=self.is_product_item_propiedad):
                     has_items = True
                     self.take_info(div)
 
@@ -191,6 +200,8 @@ class Search:
                 elif counter == 4:
                     item.change_dorms(string)
                 counter += 1
+            for a in elem.find_all('a', href=True):
+                item.href = "http://www.portalinmobiliario.com" + a["href"]
 
         # parse second information of the div
         type = 0
@@ -243,9 +254,9 @@ class Search:
                 and content_type is not None
                 and content_type.find('html') > -1)
 
-    def is_product_item(self, css_class):
+    def is_product_item_propiedad(self, css_class):
         if css_class:
-            if "row product-item" in css_class:
+            if "row product-item propiedad" in css_class:
                 return css_class
 
     def is_product_item_summary(self, css_class):

@@ -22,7 +22,7 @@ def getPlotCSV():
 
     wb = Workbook()
     ws = wb.active
-    header=["Tipo", "Categoria", "Ubicacion", "Codigo", "Informacion", "Construido", "Terreno", "Valor", "UF/Construido", "UF/Terreno"]
+    header=["Tipo", "Categoria", "Ubicacion", "Codigo", "Informacion", "Construido", "Terreno", "Valor(UF)", "UF/Construido", "UF/Terreno", "url"]
     ws.append(header)
     for line in s.data:
         ws.append(line)
