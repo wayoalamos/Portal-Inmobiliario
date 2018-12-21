@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, make_response
+from flask import Flask, Response, request, make_response, render_template
 import flask_excel as excel
 from openpyxl import Workbook
 import openpyxl
@@ -10,20 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return """
-    <h1>Inmobiliaria Aguayo </h1>
-    <h2> Por hacer: </h2>
-    <p>Falta, agregar link a columna de excel, ratios y encabezados </p>
-    <p>Busqueda de links mejorada</p>
-    <p>Cambiar estilos</p>
-    <h2> ejemplos a ingresar: (por ahora el link siempre tiene que terminar con 'pg=1')</h2>
-    <h3> https://www.portalinmobiliario.com/venta/departamento/jardin-del-este-vitacura-santiago-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
-    <h3> https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
-    <form method="POST">
-        <input name="text">
-        <input type="submit">
-    </form>
-    """
+    return render_template('index.html')
 
 @app.route("/", methods=["POST"])
 def getPlotCSV():
@@ -47,3 +34,5 @@ def getPlotCSV():
 if __name__ == '__main__':
     excel.init_excel(app)
     app.run(debug=True, use_reloader=True)
+
+ 
