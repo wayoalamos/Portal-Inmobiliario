@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Aguayo Propiedades </title>
-        <link href="{{ url_for('static', filename='main.css')}}" rel="stylesheet">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta charset="utf-8" />
+        <title>AGUAYO PROPIEDADES</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link href="../static/assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css"
+        media="screen" />
+        <!-- BEGIN CORE CSS FRAMEWORK -->
+        <link href="../static/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+            type="text/css" />
+        <!-- END CORE CSS FRAMEWORK -->
+        <!-- BEGIN CSS TEMPLATE -->
+        <link href="../static/assets/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="../static/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+        <!-- END CSS TEMPLATE -->
+        <script type="text/javascript" src="../static/assets/plugins/jquery-1.8.3.min.js"></script>
+        <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+        <script type="text/javascript" src="../static/assets/plugins/slider-plugin/js/slider1.min.js"></script>
+        <script type="text/javascript" src="../static/assets/plugins/slider-plugin/js/slider2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../static/assets/plugins/slider-plugin/css/settings.css"
+            media="screen" />
     </head>
     <body>
-        <h1>Inmobiliaria Gonzalo Aguayo </h1>
-        <h2> Por hacer: </h2>
-        <p>Falta, agregar link a columna de excel, ratios y encabezados </p>
-        <p>Busqueda de links mejorada</p>
-        <p>Cambiar estilos</p>
-        <h2> ejemplos a ingresar: (por ahora el link siempre tiene que terminar con 'pg=1')</h2>
-        <h3> https://www.portalinmobiliario.com/venta/departamento/jardin-del-este-vitacura-santiago-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
-        <h3> https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </h3>
-        <form method="POST">
-          <input name="text">
-          <input type="submit">
-        </form>
+      <div class="tp-banner-container">
+                <div class="tp-banner" id="home">
+                    <ul>
+                        <!-- SLIDE  -->
+                        <li data-transition="fade" data-slotamount="5" data-masterspeed="700">
+                            <!-- MAIN IMAGE -->
+                            <img src="../static/assets/img/bg/slide_one.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center"
+                                data-bgrepeat="no-repeat">
+                            <!-- LAYERS -->
+                            <div class="tp-caption mediumlarge_light_white_center sft tp-resizeme slider" data-x="center"
+                                data-hoffset="0" data-y="80" data-speed="500" data-start="800" data-easing="Power4.easeOut"
+                                data-endspeed="300" data-endeasing="Power1.easeIn" data-captionhidden="off" style="z-index: 6">
+                                <h2 class="text-white custom-font title ">
+                                    Ingrese la url a convertir</h2>
+                            </div>
+                            <form method="POST">
+                            <div class="tp-caption sfb slider tp-resizeme slider" data-x="center" data-hoffset="0"
+                                data-y="220" data-speed="800" data-start="700" data-easing="Power4.easeOut"
+                                data-endspeed="300" data-endeasing="Power1.easeIn" data-captionhidden="off" style="z-index: 6" >
+                                <input style="width: 1000px;" name="text" class="form-control" placeholder="https://www.portalinmobiliario.com/....." aria-label="Username" aria-describedby="basic-addon1" value = "https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1">
+                            </div>
+                            <div class="tp-caption sfb slider tp-resizeme slider" data-x="center" data-hoffset="0"
+                                data-y="320" data-speed="800" data-start="1000" data-easing="Power4.easeOut"
+                                data-endspeed="300" data-endeasing="Power1.easeIn" data-captionhidden="off" style="z-index: 6">
+                                <input type="Submit" class="btn btn-info btn-lg  btn-large m-r-10" value="Convertir">
+                            </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p> https://www.portalinmobiliario.com/venta/departamento/jardin-del-este-vitacura-santiago-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </p>
+            <p> https://www.portalinmobiliario.com/venta/sitio/las-condes-metropolitana?ca=3&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=1 </p>
+
+
+          <script src="../static/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+          <script type="text/javascript" src="../static/assets/js/core.js"></script>
     </body>
 </html>
