@@ -22,8 +22,8 @@ class Item:
         self.surface_all = None
         self.dorms = None
 
-        self.ratio_departamentos = None # UF / Superficie
-        self.ratio_casas = None #UF / Terreno
+        self.ratio_one = None # UF / Superficie
+        self.ratio_two = None #UF / Terreno
 
         self.href = None
         # self.image = None
@@ -66,9 +66,9 @@ class Item:
             surface = self.clean_surface(surface)
         except:
             print("error while cleaning surface string")
-        self.surface_built = surface[0]
+        self.surface_built = float(surface[0])
         if len(surface) > 1:
-            self.surface_all = surface[1]
+            self.surface_all = float(surface[1])
 
     def clean_surface(self, surface):
         # receives: surface string
@@ -82,9 +82,16 @@ class Item:
             surface[i] = float(surface[i])
         return surface
 
+    def calculate_ratios(self):
+        if(self.surface_built):
+            self.ratio_one = self.value / self.surface_built
+        if(self.surface_all):
+            self.ratio_two = self.value / self.surface_all
+
     def list_of_attr(self):
+        self.calculate_ratios()
         attr = [self.title, self.category, self.location, self.code, self.dorms,
-        self.surface_built, self.surface_all, self.value]
+        self.surface_built, self.surface_all, self.value, self.ratio_one, self.ratio_two]
         return attr
 
     def str_of_attr(self):

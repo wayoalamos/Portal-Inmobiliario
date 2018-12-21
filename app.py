@@ -22,6 +22,8 @@ def getPlotCSV():
 
     wb = Workbook()
     ws = wb.active
+    header=["Tipo", "Categoria", "Ubicacion", "Codigo", "Informacion", "Construido", "Terreno", "Valor", "UF/Construido", "UF/Terreno"]
+    ws.append(header)
     for line in s.data:
         ws.append(line)
 
@@ -34,5 +36,3 @@ def getPlotCSV():
 if __name__ == '__main__':
     excel.init_excel(app)
     app.run(debug=True, use_reloader=True)
-
- 
