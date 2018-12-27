@@ -26,7 +26,9 @@ def getPlotCSV():
     "Construido", "Terreno", "Valor(UF)", "UF/Construido", "UF/Terreno", "url"]
     s.workbook_active.append(header)
 
+    # aca esta el problema
     s.find_products(url) # find products of the urls
+
     output = make_response(openpyxl.writer.excel.save_virtual_workbook(s.workbook))
     output.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
     output.headers["Content-type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
