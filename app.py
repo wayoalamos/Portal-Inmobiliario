@@ -34,4 +34,5 @@ def getPlotCSV():
 
 if __name__ == '__main__':
     excel.init_excel(app)
-    app.run(debug=True, use_reloader=True)
+    # app.run(debug=True, use_reloader=True)
+    app.run()

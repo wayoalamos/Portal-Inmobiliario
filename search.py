@@ -170,7 +170,7 @@ class Search:
                 page_number = str(page_number)
                 # change url adding one to the page
                 url = url[:url.rfind("=")+1] + page_number
-                # print("url: ", url)
+                print("url: ", url)
 
     def clean_string(self, string):
         # decode and encode depending on the string
