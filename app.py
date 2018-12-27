@@ -14,21 +14,20 @@ def homepage():
 
 @app.route("/", methods=["POST"])
 def getPlotCSV():
-    text = request.form['text']
+    text = request.form['text'] # url from webpage
     url = str(text)
-    s = Search()
-    # https://www.portalinmobiliario.com/venta/casa/las-condes-metropolitana?ca=2&ts=1&mn=2&or=&sf=1&sp=0&at=0&pg=
-    s.find_products(url)
 
-    wb = Workbook()
-    ws = wb.active
-    header=["Tipo", "Categoria", "Ubicacion", "Codigo", "Informacion", "Construido", "Terreno", "Valor(UF)", "UF/Construido", "UF/Terreno", "url"]
-    ws.append(header)
-    for line in s.data:
-        ws.append(line)
+    s = Search() # create search element
+    s.workbook = Workbook() # create workbook element
+    s.workbook_active = s.workbook.active
 
-    # sheet = pyexcel.Sheet(s.data)
-    output = make_response(openpyxl.writer.excel.save_virtual_workbook(wb))
+    # excel headers
+    header=["Tipo", "Categoria", "Ubicacion", "Codigo", "Informacion",
+    "Construido", "Terreno", "Valor(UF)", "UF/Construido", "UF/Terreno", "url"]
+    s.workbook_active.append(header)
+
+    s.find_products(url) # find products of the urls
+    output = make_response(openpyxl.writer.excel.save_virtual_workbook(s.workbook))
     output.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
     output.headers["Content-type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     return output

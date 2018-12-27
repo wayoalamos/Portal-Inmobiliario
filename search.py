@@ -68,7 +68,7 @@ class Item:
         try:
             surface = self.clean_surface(surface)
         except:
-            print("error while cleaning surface string")
+            print("error al limpiar surface string")
         self.surface_built = float(surface[0])
         if len(surface) > 1:
             self.surface_all = float(surface[1])
@@ -144,11 +144,13 @@ class Search:
         self.writer = csv.writer(self.file, delimiter=",")
         self.data = []
         self.mode = 1 # 0 in file, 1 in web
+        self.workbook = None
+        self.workbook_active = None
 
     def find_products(self, url, limit=0):
         # has_items: if the website has product_item or not
         if not "&pg=" in url:
-            url += "&pg=1"
+            url = url + "&pg=1"
         has_items = True
         while has_items:
             has_items = False
@@ -168,7 +170,7 @@ class Search:
                 page_number = str(page_number)
                 # change url adding one to the page
                 url = url[:url.rfind("=")+1] + page_number
-                print("url: ", url)
+                # print("url: ", url)
 
     def clean_string(self, string):
         # decode and encode depending on the string
@@ -236,13 +238,17 @@ class Search:
         """
         try:
             with closing(get(url, stream=True)) as resp:
+                # print("url: ", url)
+                # print("url type:", type(url))
+                # print("resp: ", resp)
+                # print("is good:", self.is_good_response(resp))
                 if self.is_good_response(resp):
                     return resp.content
                 else:
                     return None
 
         except RequestException as e:
-            print('Error during requests to {0} : {1}'.format(url, str(e)))
+            print('Error en la request {0} : {1}'.format(url, str(e)))
             return None
 
     def is_good_response(self, resp):
@@ -268,7 +274,7 @@ class Search:
         if self.mode == 0:
             self.writer.writerow(item.list_of_attr())
         if self.mode == 1:
-            self.data.append(item.list_of_attr())
+            self.workbook_active.append(item.list_of_attr())
         else:
             if self.data == []:
                 self.data = ""
