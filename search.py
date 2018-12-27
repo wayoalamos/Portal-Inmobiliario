@@ -3,6 +3,7 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 import csv
+import time
 
 # cuando un producto tiene /m2 en el valor de uf saca el /m2 -> deberia ser ignorado
 
@@ -146,17 +147,22 @@ class Search:
         self.mode = 1 # 0 in file, 1 in web
         self.workbook = None
         self.workbook_active = None
+        self.status = 1 # 0 if it was uncomplete request
+        self.last_url = None
 
-    def find_products(self, url, limit=0):
+    def find_products(self, url):
         # has_items: if the website has product_item or not
         if not "&pg=" in url:
             url = url + "&pg=1"
         has_items = True
+        start_time = time.time()
         while has_items:
             has_items = False
             response = self.simple_get(url)
             if response:
                 # conver html with BeautifulSoup
+
+                print("url: ", url)
                 html = BeautifulSoup(response, 'html.parser')
                 for div in html.find_all("div", class_=self.is_product_item_propiedad):
                     has_items = True
@@ -164,13 +170,17 @@ class Search:
 
                 # take last number of the url and add 1
                 page_number = int(url[url.rfind("=")+1:]) + 1
-                if page_number >= limit and limit != 0:
-                    break
-
                 page_number = str(page_number)
+
                 # change url adding one to the page
                 url = url[:url.rfind("=")+1] + page_number
-                print("url: ", url)
+
+                if time.time() - start_time > 28:
+                    print("no more!!")
+                    self.status = 0
+                    self.last_url = url
+                    return
+
 
     def clean_string(self, string):
         # decode and encode depending on the string

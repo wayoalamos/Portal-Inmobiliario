@@ -8,9 +8,11 @@ from search import Search
 # fix dimensiones por la coma que hay se separan en dos valores distintos en el excel
 app = Flask(__name__)
 
+counter = 0
+
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    return render_template('index.html', data=counter)
 
 @app.route("/", methods=["POST"])
 def getPlotCSV():
@@ -28,6 +30,12 @@ def getPlotCSV():
 
     # aca esta el problema
     s.find_products(url) # find products of the urls
+    if s.status == 0:
+        # in case there was not enough time
+        print("here we go again!")
+        s.status = 1
+
+        # s.find_products(s.last_url)
 
     output = make_response(openpyxl.writer.excel.save_virtual_workbook(s.workbook))
     output.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
