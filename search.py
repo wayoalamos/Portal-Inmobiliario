@@ -249,10 +249,10 @@ class Search:
         try:
             headers = {'User-Agent': 'Mozilla/5.0'}
             with closing(get(url, headers=headers, stream=True)) as resp:
-                print("url: ", url)
-                print("url type:", type(url))
-                print("resp: ", resp)
-                print("is good:", self.is_good_response(resp))
+                # print("url: ", url)
+                # print("url type:", type(url))
+                # print("resp: ", resp)
+                # print("is good:", self.is_good_response(resp))
                 if self.is_good_response(resp):
                     return resp.content
                 else:
