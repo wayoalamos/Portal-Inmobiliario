@@ -247,11 +247,12 @@ class Search:
         text content, otherwise return None.
         """
         try:
-            with closing(get(url, stream=True)) as resp:
-                # print("url: ", url)
-                # print("url type:", type(url))
-                # print("resp: ", resp)
-                # print("is good:", self.is_good_response(resp))
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            with closing(get(url, headers=headers, stream=True)) as resp:
+                print("url: ", url)
+                print("url type:", type(url))
+                print("resp: ", resp)
+                print("is good:", self.is_good_response(resp))
                 if self.is_good_response(resp):
                     return resp.content
                 else:
@@ -266,6 +267,7 @@ class Search:
         Returns True if the response seems to be HTML, False otherwise.
         """
         content_type = resp.headers['Content-Type'].lower()
+        print("content type: ", content_type)
         return (resp.status_code == 200
                 and content_type is not None
                 and content_type.find('html') > -1)
