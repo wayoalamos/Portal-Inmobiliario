@@ -174,12 +174,15 @@ class Search:
 
                 # change url adding one to the page
                 url = url[:url.rfind("=")+1] + page_number
+                    
+                """
+                PARA QUE NO SE CAIGA A LOS 28 seg
 
                 if time.time() - start_time > 28:
                     print("no more!!")
                     self.status = 0
                     self.last_url = url
-                    return
+                    return"""
 
 
     def clean_string(self, string):
