@@ -5,13 +5,15 @@ from openpyxl import Workbook
 import openpyxl
 import pyexcel
 
-from rq import Queue
-
-from worker import conn
 from search import Search
-from utils import count_words_at_url
 
-import time
+# from rq import Queue
+
+# from worker import conn
+from search import Search
+# from utils import count_words_at_url
+
+# import time
 # fix dimensiones por la coma que hay se separan en dos valores distintos en el excel
 app = Flask(__name__)
 
@@ -23,23 +25,22 @@ def homepage():
 
 @app.route("/", methods=["POST"])
 def getPlotCSV():
-    print("1111111")
     text = request.form['text'] # url from webpage
     url = str(text)
+    s = Search() # create search element
+    s.workbook = Workbook() # create workbook element
+    s.workbook_active = s.workbook.active
 
-    q = Queue(connection=conn)
-    first_job = q.enqueue(count_words_at_url, url)
-    result = first_job.result
-    while not result:
-        result = first_job.result
+    # excel headers
+    header=["Tipo", "Categoria", "Ubicacion", "Codigo", "Informacion",
+    "Construido", "Terreno", "Valor(UF)", "UF/Construido", "UF/Terreno", "url"]
+    s.workbook_active.append(header)
 
-    print("miiii resultado:", result)
-
-    output = make_response(openpyxl.writer.excel.save_virtual_workbook(result))
-    output.headers["Content-Disposition"] = "attachment; filename=PortalI.xlsx"
+    # aca esta el problema
+    s.find_products(url) # find products of the urls
+    output = make_response(openpyxl.writer.excel.save_virtual_workbook(s.workbook))
+    output.headers["Content-Disposition"] = "attachment; filename=Datos.xlsx"
     output.headers["Content-type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-
-
     return output
 
 if __name__ == '__main__':
