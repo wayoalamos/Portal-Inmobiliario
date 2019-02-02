@@ -5,12 +5,10 @@ from openpyxl import Workbook
 import openpyxl
 import pyexcel
 
-from search import Search
 
 # from rq import Queue
 
 # from worker import conn
-from search import Search
 # from utils import count_words_at_url
 
 # import time
