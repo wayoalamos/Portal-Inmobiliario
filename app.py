@@ -24,6 +24,8 @@ def homepage():
 @app.route("/", methods=["POST"])
 def getPlotCSV():
     print("1111111")
+    text = request.form['text'] # url from webpage
+    url = str(text)
 
     q = Queue(connection=conn)
     first_job = q.enqueue(count_words_at_url, url)
@@ -31,8 +33,6 @@ def getPlotCSV():
     result = first_job.result
     print("miiii resultado:", result)
 
-    text = request.form['text'] # url from webpage
-    url = str(text)
     s = Search() # create search element
     s.workbook = Workbook() # create workbook element
     s.workbook_active = s.workbook.active
