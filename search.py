@@ -174,7 +174,7 @@ class Search:
 
                 # change url adding one to the page
                 url = url[:url.rfind("=")+1] + page_number
-                    
+
                 """
                 PARA QUE NO SE CAIGA A LOS 28 seg
 
