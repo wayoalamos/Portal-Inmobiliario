@@ -3,8 +3,11 @@ import flask_excel as excel
 from openpyxl import Workbook
 import openpyxl
 import pyexcel
+from rq import Queue
 
+from worker import conn
 from search import Search
+from utils import count_words_at_url
 # fix dimensiones por la coma que hay se separan en dos valores distintos en el excel
 app = Flask(__name__)
 
@@ -16,6 +19,9 @@ def homepage():
 
 @app.route("/", methods=["POST"])
 def getPlotCSV():
+    q = Queue(connection=conn)
+    result = q.enqueue(count_words_at_url)
+    print("mi resultado:", result)
     text = request.form['text'] # url from webpage
     url = str(text)
 
