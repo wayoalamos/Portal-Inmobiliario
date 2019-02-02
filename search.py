@@ -162,7 +162,7 @@ class Search:
             if response:
                 # conver html with BeautifulSoup
 
-                print("url: ", url)
+                print(" la url: ", url)
                 html = BeautifulSoup(response, 'html.parser')
                 for div in html.find_all("div", class_=self.is_product_item_propiedad):
                     has_items = True
