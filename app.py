@@ -25,7 +25,7 @@ def getPlotCSV():
     result = q.enqueue(count_words_at_url, url)
     print("mi resultado:", result)
 
-    return result
+    return "result"
 
 if __name__ == '__main__':
     excel.init_excel(app)
