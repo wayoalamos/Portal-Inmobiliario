@@ -4,11 +4,8 @@ from flask import make_response
 import openpyxl
 import pyexcel
 
-from flask import Flask, Response, request, render_template
 
-
-
-def count_words_at_url(url):
+def count_words_at_url(url, app):
     with app.app_context():
         print("dentro de la funcion")
         s = Search() # create search element

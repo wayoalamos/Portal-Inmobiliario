@@ -21,7 +21,7 @@ def getPlotCSV():
     text = request.form['text'] # url from webpage
     url = str(text)
     q = Queue(connection=conn)
-    result = q.enqueue(count_words_at_url, url)
+    result = q.enqueue(count_words_at_url, url, app)
     print("mi resultado:", result)
 
     return "result"
