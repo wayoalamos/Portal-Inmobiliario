@@ -1,8 +1,6 @@
-from flask import Flask, Response, request, make_response, render_template
+from flask import Flask, Response, request, render_template
 import flask_excel as excel
-from openpyxl import Workbook
-import openpyxl
-import pyexcel
+
 from rq import Queue
 
 from worker import conn
