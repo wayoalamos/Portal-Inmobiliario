@@ -52,7 +52,7 @@ class Item:
         value = value.lstrip("UF ")
         value = value.replace(".", "")
         value = value.replace(",", ".")
-        # value = value[:value.find("/")] # maybe change this
+        value = value[:value.find("/")] # maybe change this
         try:
             value = float(value)
         except:
@@ -173,6 +173,7 @@ class Search:
                 # change url adding one to the page
                 url = url[:url.rfind("=")+1] + page_number
 
+                # time limit
                 if time.time() - start_time > 28:
                     print("no more!!")
                     self.status = 0
